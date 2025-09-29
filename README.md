@@ -1,4 +1,4 @@
-# Demo OAuth2 con Google + FastAPI
+# Demo OAuth2 con Google
 
 Este proyecto es una prueba de concepto de autenticación con Google OAuth2 usando un frontend en HTML/JS y un backend en FastAPI.
 
@@ -28,7 +28,7 @@ source venv/bin/activate
 ## 3. Instalar dependencias
 
 ```bash
-pip install fastapi uvicorn "python-jose[cryptography]" requests
+pip install fastapi uvicorn python-jose google-auth
 ```
 
 ## 4. Iniciar el backend (FastAPI)
