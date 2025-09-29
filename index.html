@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Demo Login con Google OAuth2</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
-    // Esta función se llama cuando el usuario inicia sesión
     function handleCredentialResponse(response) {
       console.log("JWT Token:", response.credential);
-
-      // 1. Mostrar datos decodificados en consola (solo para debug)
       const data = JSON.parse(atob(response.credential.split(".")[1]));
       console.log("Usuario (decodificado en el front):", data);
 
-      // 2. Mandar token al backend FastAPI
       fetch("http://127.0.0.1:5000/perfil", {
         method: "GET",
         headers: {
@@ -27,29 +24,36 @@
       .then(data => {
         console.log("Respuesta del backend:", data);
         document.getElementById("output").innerText =
-          `✔️ Validado en backend\n\n${data.mensaje}\nEmail: ${data.email}\nFoto: ${data.foto}`;
+          `Validado en backend\n\n${data.mensaje}\nEmail: ${data.email}\nFoto: ${data.foto}`;
       })
       .catch(err => {
         console.error(err);
         document.getElementById("output").innerText =
-          "❌ Error validando con backend: " + err;
+          "Error validando con backend: " + err;
       });
     }
   </script>
 </head>
 <body>
-  <h2>Demo: Login con Google OAuth2</h2>
+  <div class="container">
+    <header>
+      <h1>Demo Login</h1>
+      <p>Inicia sesión de forma segura usando tu cuenta de Google.</p>
+    </header>
 
-  <!-- Botón de Google -->
-  <div id="g_id_onload"
-       data-client_id="440257891541-faoulq5g61v2efoen1qj5mk0fa2r7jnm.apps.googleusercontent.com"
-       data-callback="handleCredentialResponse"
-       data-auto_prompt="false">
+    <section class="login-section">
+      <div id="g_id_onload"
+           data-client_id="440257891541-faoulq5g61v2efoen1qj5mk0fa2r7jnm.apps.googleusercontent.com"
+           data-callback="handleCredentialResponse"
+           data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin" data-type="standard"></div>
+    </section>
+
+    <section class="result-section">
+      <h2>Resultado:</h2>
+      <pre id="output" class="output-box"></pre>
+    </section>
   </div>
-
-  <div class="g_id_signin" data-type="standard"></div>
-
-  <h3>Resultado:</h3>
-  <pre id="output"></pre>
 </body>
 </html>
