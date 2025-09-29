@@ -35,6 +35,13 @@ pip install fastapi uvicorn python-jose google-auth
 
 ```bash
 uvicorn main:app --reload --port 5000
+
+```
+## 5. (Opcional) En caso de fallo, instalar requests para que no falten dependencias.
+
+```bash
+pip install requests
+
 ```
 
 El backend estará disponible en: [http://127.0.0.1:5000](http://127.0.0.1:5000)
